@@ -16,15 +16,18 @@ jobs:
             echo "${{ github.token }}"
         - name: Checkout repository
           uses: actions/checkout@v1
+       
         - name: List Files after checkout
           run: |
             pwd
             ls -a
+       
         - name: Simple JS Action
           id: greet
           uses: actions/hello-world-javascript-action@v1
           with:
             who-to-greet: Gonzalo
+       
         - name: Log Greeting Time
           run: echo "${{ steps.greet.outputs.time }}"
   
