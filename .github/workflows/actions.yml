@@ -2,7 +2,7 @@ name: Actions Workflow
 
 on: 
   repository_dispatch:
-    types: []
+    types: [build]
   # schedule:
   #   - cron: "0/5 * * * *"
   pull_request:
@@ -13,6 +13,8 @@ jobs:
     run-github-actions:
       runs-on: ubuntu-18.04
       steps:
+        - name: Pring Payload
+          run: echo ${{ github.event.client_payload }}
         - name: List Files
           run: |
             pwd
