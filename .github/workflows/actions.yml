@@ -1,11 +1,20 @@
 name: Actions Workflow
 
-on: [push, pull_request]
+on: 
+  repository_dispatch:
+    types: [build]
+  # schedule:
+  #   - cron: "0/5 * * * *"
+  pull_request:
+    types: [opened, reopened]
+
 
 jobs:
     run-github-actions:
       runs-on: ubuntu-18.04
       steps:
+        - name: Print Payload
+          run: echo ${{ github.event.client_payload }}
         - name: List Files
           run: |
             pwd
@@ -16,15 +25,18 @@ jobs:
             echo "${{ github.token }}"
         - name: Checkout repository
           uses: actions/checkout@v1
+       
         - name: List Files after checkout
           run: |
             pwd
             ls -a
+       
         - name: Simple JS Action
           id: greet
           uses: actions/hello-world-javascript-action@v1
           with:
             who-to-greet: Gonzalo
+       
         - name: Log Greeting Time
           run: echo "${{ steps.greet.outputs.time }}"
   
