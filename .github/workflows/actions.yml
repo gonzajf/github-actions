@@ -13,7 +13,7 @@ jobs:
     run-github-actions:
       runs-on: ubuntu-18.04
       steps:
-        - name: Pring Payload
+        - name: Print Payload
           run: echo ${{ github.event.client_payload }}
         - name: List Files
           run: |
